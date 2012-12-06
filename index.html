@@ -1,29 +1,16 @@
----
----
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Say Cheese!</title>
+    <title>Boothy</title>
     <link rel='stylesheet' href='public/css/bootstrap.min.css'>
     <link rel='stylesheet' href='public/css/pygments.css'>
     <link rel='stylesheet' href='public/css/say-cheese.css'>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   </head>
 
   <body>
 
     <div class='container'>
-      <div class='row'>
-        <div class='span12'>
-          <h1>Say Cheese!</h1>
-          <p class='lead'>Minimal javascript library for integrating a webcam and snapshots into your app.</p>
-          <iframe src="http://ghbtns.com/github-btn.html?user=leemachin&repo=say-cheese&type=watch&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
-          <iframe src="http://ghbtns.com/github-btn.html?user=leemachin&repo=say-cheese&type=fork&count=true&size=large"
-  allowtransparency="true" frameborder="0" scrolling="0" width="146px" height="30px"></iframe>
-
-        </div>
-      </div>
 
       <div class='row'>
         <div class='span12 say-cheese'>
@@ -32,68 +19,21 @@
               <button class='btn btn-success' id='take-snapshot'>snap!</button>
             </div>
           </div>
-          <div id='say-cheese-snapshots'></div>
+         
         </div>
       </div>
 
       <div class='row'>
-        <div class='span6'>
-          <h3>Taking pictures</h3>
-          <p><strong>Say Cheese</strong> exposes a simple, event-based API for taking snapshots from your webcam:</p>
+         <div class='span12 say-cheese'>
+            
+            <div id="scroll">
+              <div id='say-cheese-snapshots'></div> 
+            </div>​
+         </div>
 
-{% highlight javascript %}
-$(function() {
-  var sayCheese = new SayCheese('#container-element');
-  sayCheese.on('start', function() {
-    this.takeSnapshot();
-  });
-
-  sayCheese.on('snapshot', function(snapshot) {
-    // a snapshot has been taken, do something with it :)
-  });
-
-  sayCheese.start();
-});
-{% endhighlight %}
-
-        </div>
-        <div class='span6'>
-          <h3>Compatibility</h3>
-          <p><strong>Works for the following browsers:</strong></p>
-          <ul>
-            <li>Google Chrome
-            <li>Opera
-            <li>Firefox <a href="https://github.com/leemachin/say-cheese#firefox-caveats">with caveats</a>
-          </ul>
-
-          <p><small><strong>Firefox users:</strong><br> Unless you're using
-          the Nightly build, you have to manually enable the webcam
-          functionality. You can do this by browsing
-          to <code>about:config</code>, right clicking the page, and
-          then selecting <code>Boolean</code> in the 'New'
-          menu. Enter <code>media.navigator.enabled</code>, and double
-          click it if it doesn't appear set
-          to <code>true</code>.</small></p>
-        </div>
       </div>
-
-      <div class='row'>
-        <div class='span12'>
-          <h3>Source and documentation</h3>
-          <p>You can nab the source and see some slightly more detailed
-            documentation at the <a href='http://github.com/leemachin/say-cheese'>GitHub repo</a>.
-            Feel free to file any issues or patches or whatever.</p>
-        </div>
-      </div>
-    </div>
 
     </div>
-    <footer>
-      <div class='container'>
-        <hr>
-        <p>Cobbled together by <a href='http://leemach.in'>Lee Machin</a>, 2012</p>
-      </div>
-    </footer>
 
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'></script>
