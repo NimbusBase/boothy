@@ -1,87 +1,140 @@
-<!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+---
+---
+
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <head>
+    <title>Say Cheese!</title>
+    <link rel='stylesheet' href='public/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='public/css/pygments.css'>
+    <link rel='stylesheet' href='public/css/say-cheese.css'>
+  </head>
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
+  <body>
 
-  <title>Boothy</title>
-  <meta name="description" content="dailybooth clone with photos stored on dropbox">
+    <div class='container'>
+      <div class='row'>
+        <div class='span12'>
+          <h1>Say Cheese!</h1>
+          <p class='lead'>Minimal javascript library for integrating a webcam and snapshots into your app.</p>
+          <iframe src="http://ghbtns.com/github-btn.html?user=leemachin&repo=say-cheese&type=watch&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
+          <iframe src="http://ghbtns.com/github-btn.html?user=leemachin&repo=say-cheese&type=fork&count=true&size=large"
+  allowtransparency="true" frameborder="0" scrolling="0" width="146px" height="30px"></iframe>
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-</head>
-
-<body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Boothy</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">dailybooth clone with photos stored on dropbox</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/NimbusBase/boothy/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/NimbusBase/boothy/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/NimbusBase/boothy" class="code">View Boothy on GitHub</a>
         </div>
-        <span class="blc"></span><span class="trc"></span>
+      </div>
+
+      <div class='row'>
+        <div class='span12 say-cheese'>
+          <div id='say-cheese-container'>
+            <div id='action-buttons'>
+              <button class='btn btn-success' id='take-snapshot'>snap!</button>
+            </div>
+          </div>
+          <div id='say-cheese-snapshots'></div>
         </div>
-        <article class="markdown-body">
-          <h3>Welcome to GitHub Pages.</h3>
+      </div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+      <div class='row'>
+        <div class='span6'>
+          <h3>Taking pictures</h3>
+          <p><strong>Say Cheese</strong> exposes a simple, event-based API for taking snapshots from your webcam:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+{% highlight javascript %}
+$(function() {
+  var sayCheese = new SayCheese('#container-element');
+  sayCheese.on('start', function() {
+    this.takeSnapshot();
+  });
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+  sayCheese.on('snapshot', function(snapshot) {
+    // a snapshot has been taken, do something with it :)
+  });
 
-<h3>Designer Templates</h3>
+  sayCheese.start();
+});
+{% endhighlight %}
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+        </div>
+        <div class='span6'>
+          <h3>Compatibility</h3>
+          <p><strong>Works for the following browsers:</strong></p>
+          <ul>
+            <li>Google Chrome
+            <li>Opera
+            <li>Firefox <a href="https://github.com/leemachin/say-cheese#firefox-caveats">with caveats</a>
+          </ul>
 
-<h3>Rather Drive Stick?</h3>
+          <p><small><strong>Firefox users:</strong><br> Unless you're using
+          the Nightly build, you have to manually enable the webcam
+          functionality. You can do this by browsing
+          to <code>about:config</code>, right clicking the page, and
+          then selecting <code>Boolean</code> in the 'New'
+          menu. Enter <code>media.navigator.enabled</code>, and double
+          click it if it doesn't appear set
+          to <code>true</code>.</small></p>
+        </div>
+      </div>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </article>
+      <div class='row'>
+        <div class='span12'>
+          <h3>Source and documentation</h3>
+          <p>You can nab the source and see some slightly more detailed
+            documentation at the <a href='http://github.com/leemachin/say-cheese'>GitHub repo</a>.
+            Feel free to file any issues or patches or whatever.</p>
+        </div>
       </div>
     </div>
+
+    </div>
     <footer>
-      <div class="owner">
-      <p><a href="https://github.com/NimbusBase" class="avatar"><img src="https://secure.gravatar.com/avatar/26f702e317612f6b5173c32df51ab69e?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/NimbusBase">NimbusBase</a> maintains <a href="https://github.com/NimbusBase/boothy">Boothy</a></p>
-
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      <div class='container'>
+        <hr>
+        <p>Cobbled together by <a href='http://leemach.in'>Lee Machin</a>, 2012</p>
       </div>
     </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/NimbusBase/boothy/tarball/master" class="tar">tar</a><a href="https://github.com/NimbusBase/boothy/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
 
-  
-</body>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'></script>
+    <script src='public/js/bootstrap.min.js'></script>
+    <script src='https://raw.github.com/leemachin/say-cheese/master/say-cheese.js'></script>
+    <script>
+      $(function() {
+        var sayCheese = new SayCheese('#say-cheese-container');
+
+        sayCheese.on('start', function() {
+          $('#action-buttons').fadeIn('fast');
+
+          $('#take-snapshot').on('click', function(evt) {
+            sayCheese.takeSnapshot();
+          });
+        });
+
+        sayCheese.on('error', function(error) {
+          var $alert = $('<div>');
+          $alert.addClass('alert alert-error').css('margin-top', '20px');
+
+          if (error === 'NOT_SUPPORTED') {
+            $alert.html("<strong>:(</strong> your browser doesn't support this yet!");
+          } else {
+            $alert.html("<strong>:(</strong> you have to click 'allow' to try me out!");
+          }
+
+          $('.say-cheese').prepend($alert);
+        });
+
+        sayCheese.on('snapshot', function(snapshot) {
+          var img = document.createElement('img');
+
+          $(img).on('load', function() {
+            $('#say-cheese-snapshots').prepend(img);
+          });
+          img.src = snapshot.toDataURL('image/png');
+        });
+
+        sayCheese.start();
+      });
+    </script>
+  </body>
 </html>
