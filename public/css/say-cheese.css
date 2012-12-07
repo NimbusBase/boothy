@@ -1,3 +1,7 @@
+body {
+  background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/retina_wood.png);
+}
+
 .say-cheese {
   clear: both;
 }
@@ -23,7 +27,6 @@
 }
 
 #say-cheese-container video {
-  border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 8px 1px #808080;
 }
 
@@ -44,21 +47,26 @@
 }
 
 #scroll{
-    width: 100%;
-    overflow-x: scroll;
-    overflow-y:hidden; 
+  width: 925px;
+  overflow-x: scroll;
+  overflow-y:hidden; 
+  background-color: #333;
+  padding: 5px;
+  margin-left: 5px;    
+  height: 245px;
+  box-shadow: 0px 0px 8px 1px gray;  
 }
 
 .rightmenu {
-  width: 243px;
-  background-color: #222;
+  width: 250px;
+  background-color: #333;
   float: right;
   height: 450px;
   margin: 15px 15px 15px 5px;
-  box-shadow: 0px 0px 8px 1px gray;
-  border: 1px solid #F4F4F4;  
+  box-shadow: 0px 0px 8px 1px gray;  
   padding: 15px;
   margin-right: 0px;
+  margin-left: 0px;
 }
 
 #logo {
@@ -72,3 +80,24 @@
   width: 40px;
   vertical-align: top
 }
+
+.snapbutton {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  color: #a7a7a7;
+  margin: 36px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  text-align: center;
+  line-height: 144px;
+  border-radius: 50%;
+  border: 0px;
+  top: 10px;
+  right: 215px;
+}
+
+.snapbutton:hover {  
+  background-color: rgba(0,0,0,0.8);
+}
+
