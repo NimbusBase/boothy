@@ -22,6 +22,7 @@
 
           <div class="rightmenu">
             <h1 id="logo"><img src="public/img/camera.png" />Boothy</h1>
+            <p style="color: white; margin-top: 10px;">Take a picture and save it to your Dropbox.</p>
           </div>
 
         </div>
@@ -43,42 +44,6 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'></script>
     <script src='public/js/bootstrap.min.js'></script>
     <script src='https://raw.github.com/leemachin/say-cheese/master/say-cheese.js'></script>
-    <script>
-      $(function() {
-        var sayCheese = new SayCheese('#say-cheese-container');
-
-        sayCheese.on('start', function() {
-          $('#action-buttons').fadeIn('fast');
-
-          $('#take-snapshot').on('click', function(evt) {
-            sayCheese.takeSnapshot();
-          });
-        });
-
-        sayCheese.on('error', function(error) {
-          var $alert = $('<div>');
-          $alert.addClass('alert alert-error').css('margin-top', '20px');
-
-          if (error === 'NOT_SUPPORTED') {
-            $alert.html("<strong>:(</strong> your browser doesn't support this yet!");
-          } else {
-            $alert.html("<strong>:(</strong> you have to click 'allow' to try me out!");
-          }
-
-          $('.say-cheese').prepend($alert);
-        });
-
-        sayCheese.on('snapshot', function(snapshot) {
-          var img = document.createElement('img');
-
-          $(img).on('load', function() {
-            $('#say-cheese-snapshots').prepend(img);
-          });
-          img.src = snapshot.toDataURL('image/png');
-        });
-
-        sayCheese.start();
-      });
-    </script>
+    <script src='public/js/boothy.js'></script>
   </body>
 </html>
