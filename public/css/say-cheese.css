@@ -1,5 +1,4 @@
 .say-cheese {
-  border-bottom: 1px solid #e8e8e8;
   clear: both;
 }
 
@@ -49,14 +48,27 @@
     overflow-x: scroll;
     overflow-y:hidden; 
 }
-#container{
-    width: 5000px;   
+
+.rightmenu {
+  width: 243px;
+  background-color: #222;
+  float: right;
+  height: 450px;
+  margin: 15px 15px 15px 5px;
+  box-shadow: 0px 0px 8px 1px gray;
+  border: 1px solid #F4F4F4;  
+  padding: 15px;
+  margin-right: 0px;
 }
-.obj{
-    width: 100px;
-    height: 100px;
-    background-color: #888;
-    margin: 3px;
-    display: inline-block;
-    float: left;
-}​
+
+#logo {
+  color: #EEE;
+  margin: 0px;
+  font-family: "helvetica neue";
+}
+
+#logo img {  
+  margin-right: 10px;
+  width: 40px;
+  vertical-align: top
+}
