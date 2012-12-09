@@ -1,3 +1,5 @@
+Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
+
 window.dataURItoBlob = (dataURI, callback) ->
   
   # convert base64 to raw binary data held in a string
@@ -27,7 +29,6 @@ $ ->
     $("#take-snapshot").on "click", (evt) ->
       sayCheese.takeSnapshot()
 
-
   sayCheese.on "error", (error) ->
     $alert = $("<div>")
     $alert.addClass("alert alert-error").css "margin-top", "20px"
@@ -45,6 +46,11 @@ $ ->
     data_uri = snapshot.toDataURL("image/png")
     window.blob_test = window.dataURItoBlob(data_uri)
     console.log(window.blob_test)
+
+    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png")
+
+    console.log("saving pic to Dropbox")
+
     img.src = data_uri
 
   sayCheese.start()
