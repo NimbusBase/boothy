@@ -6,7 +6,6 @@ html {
 }
 
 body {
-  background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/retina_wood.png);
 	height: 100%;
 	width: 100%;
 	margin: 0px;
@@ -40,7 +39,7 @@ body {
 }
 
 #say-cheese-container video {
-  box-shadow: 0px 0px 8px 1px #808080;
+  box-shadow: 0px 0px 8px 1px #222;
 }
 
 
@@ -88,6 +87,8 @@ body {
   position: fixed;
   top: 0px;
   right: 0px;
+  border-left: 1px solid #222;
+  -webkit-box-shadow: -2px -2px 1px #333;
 }
 
 #logo {
@@ -139,6 +140,7 @@ body {
 #one { 
   height: 70%; 
   background-color: #040;
+  background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png)
 }
 #two { 
   height: 24%;
@@ -148,4 +150,15 @@ body {
   border-top: 1px solid #444;
   padding-top: 1%;
   padding-bottom: 4%;
+}
+
+.dark-bar {
+  background: #4a4a4a; /* Old browsers */
+  background: -moz-linear-gradient(top, #4a4a4a 0%, #636363 3%, #636363 6%, #5a5a5a 34%, #484848 74%, #404040 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4a4a4a), color-stop(3%,#636363), color-stop(6%,#636363), color-stop(34%,#5a5a5a), color-stop(74%,#484848), color-stop(100%,#404040)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #4a4a4a 0%,#636363 3%,#636363 6%,#5a5a5a 34%,#484848 74%,#404040 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #4a4a4a 0%,#636363 3%,#636363 6%,#5a5a5a 34%,#484848 74%,#404040 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #4a4a4a 0%,#636363 3%,#636363 6%,#5a5a5a 34%,#484848 74%,#404040 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #4a4a4a 0%,#636363 3%,#636363 6%,#5a5a5a 34%,#484848 74%,#404040 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', endColorstr='#404040',GradientType=0 ); /* IE6-9 */  
 }
