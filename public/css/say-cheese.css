@@ -1,5 +1,17 @@
+html {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
 body {
   background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/retina_wood.png);
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;  
+  overflow: hidden;
 }
 
 .say-cheese {
@@ -7,11 +19,12 @@ body {
 }
 
 #say-cheese-container {
-  margin: 15px 15px 15px 5px;
+  margin: 0px auto;
   max-width: 640px;
   max-height: 480px;
-  float: left;
   position: relative;
+  padding-right: 240px;
+  padding-top: 30px;
 }
 
 #action-buttons {
@@ -38,23 +51,28 @@ body {
 }
 
 #say-cheese-snapshots img {
-    width: 320px;
-    height: 240px;
-    background-color: #888;
-    margin: 3px;
-    display: inline-block;
-    float: left;
+	height: 80%;
+	background-color: white;
+	margin: 0px;
+	display: inline-block;
+	float: left;
+	padding: 0.15%;
+	margin: 0.2%;
+	border: 1px solid #EEE;
+	box-shadow: 0px 0px 4px 0px gray;
 }
 
 #scroll{
-  width: 925px;
+  width: 100%;
   overflow-x: scroll;
-  overflow-y:hidden; 
-  background-color: #333;
-  padding: 5px;
-  margin-left: 5px;    
-  height: 245px;
-  box-shadow: 0px 0px 8px 1px gray;  
+  overflow-y: hidden;
+  padding: 0px;
+  margin-left: 0px;
+  background-color: #FFEFEF;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #777;
+  height: 100%;
+  -webkit-box-shadow: inset 0 0 5px#888;
 }
 
 .rightmenu {
@@ -62,11 +80,14 @@ body {
   background-color: #333;
   float: right;
   height: 450px;
-  margin: 15px 15px 15px 5px;
-  box-shadow: 0px 0px 8px 1px gray;  
-  padding: 15px;
+  margin: 0px;
+  padding: 0px;
   margin-right: 0px;
   margin-left: 0px;
+  height: 70%;
+  position: fixed;
+  top: 0px;
+  right: 0px;
 }
 
 #logo {
@@ -101,3 +122,30 @@ body {
   background-color: rgba(0,0,0,0.8);
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.bot {
+  box-shadow: 0px 0px 8px 1px gray;  
+  background-color: #333;
+}
+
+#one, #two {
+  display: block;
+}
+
+#one { 
+  height: 70%; 
+  background-color: #040;
+}
+#two { 
+  height: 24%;
+  background-color: #004;
+  -webkit-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+  background: -webkit-gradient(linear, left top, left bottom, from(#DEDFE0), to(#CACACA));
+  border-top: 1px solid #444;
+  padding-top: 1%;
+  padding-bottom: 4%;
+}

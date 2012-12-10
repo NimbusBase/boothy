@@ -3,17 +3,43 @@
   <head>
     <title>Boothy</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel='stylesheet' href='public/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='public/css/pygments.css'>
+    <!-- <link rel='stylesheet' href='public/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='public/css/pygments.css'> -->
     <link rel='stylesheet' href='public/css/say-cheese.css'>
-    
+
   </head>
 
   <body>
+    <div id="one" class="say-cheese">
 
-    <div class='container'>
+      <div id='say-cheese-container'>
+        <div id='action-buttons'>
+          <button class='snapbutton' id='take-snapshot'><img src="public/img/camera2.png" style="width: 50px; position: relative; top: -10px;" /></button>
+        </div>
+      </div>
 
-      <div class='row'>
+      <div class="rightmenu">
+        <h1 id="logo"><img src="public/img/camera.png" />Boothy</h1>
+        <p style="color: white; margin-top: 10px;">Take a picture and save it to your Dropbox.</p>
+      </div>
+
+    </div>
+
+    <div id="two">
+      <div id="scroll">
+        <div id='say-cheese-snapshots'></div> 
+      </div>​
+	</div>	
+    
+    <!-- <div id="two">
+      <div id="scroll">
+        <div id='say-cheese-snapshots'></div> 
+      </div>​
+    </div> -->
+    
+    <!-- <div class='container-fluid'>
+
+      <div class='row-fluid top' style="height: 70%">
         <div class='span12 say-cheese'>
           <div id='say-cheese-container'>
             <div id='action-buttons'>
@@ -29,7 +55,7 @@
         </div>
       </div>
 
-      <div class='row'>
+      <div class='row-fluid bot' style="height: 30%">
          <div class='span12 say-cheese'>
             
             <div id="scroll">
@@ -39,7 +65,7 @@
 
       </div>
 
-    </div>
+    </div> -->
 
     <script src='public/js/nimbus.min.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'></script>
