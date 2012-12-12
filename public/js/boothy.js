@@ -101,3 +101,13 @@ $(function() {
   }
   return _results;
 });
+
+Nimbus.Auth.authorized_callback = function() {
+  if (Nimbus.Auth.authorized()) {
+    return $("#loading").fadeOut();
+  }
+};
+
+if (Nimbus.Auth.authorized()) {
+  $("#loading").fadeOut();
+}
