@@ -19,8 +19,22 @@ window.dataURItoBlob = function(dataURI, callback) {
   return bb;
 };
 
+window.delete_all_binary = function() {
+  var x, _i, _len, _ref, _results;
+  _ref = binary.all();
+  _results = [];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    x = _ref[_i];
+    if (x.path != null) {
+      Nimbus.Client.Dropbox.Binary.delete_file(x);
+    }
+    _results.push(x.destroy());
+  }
+  return _results;
+};
+
 $(function() {
-  var sayCheese;
+  var callback_two, img, sayCheese, x, _i, _len, _ref, _results;
   sayCheese = new SayCheese("#say-cheese-container");
   sayCheese.on("start", function() {
     $("#action-buttons").fadeIn("fast");
@@ -40,7 +54,7 @@ $(function() {
     return $(".say-cheese").prepend($alert);
   });
   sayCheese.on("snapshot", function(snapshot) {
-    var data_uri, img;
+    var callback, data_uri, img;
     img = document.createElement("img");
     $(img).on("load", function() {
       return $("#say-cheese-snapshots").prepend(img);
@@ -49,8 +63,41 @@ $(function() {
     data_uri = snapshot.toDataURL("image/png");
     window.blob_test = window.dataURItoBlob(data_uri);
     console.log(window.blob_test);
-    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png");
+    callback = function(bin) {
+      var callback2;
+      callback2 = function(url) {
+        bin.directlink = url.url;
+        return bin.save();
+      };
+      return Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2);
+    };
+    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback);
+    console.log("saving pic to Dropbox");
     return img.src = data_uri;
   });
-  return sayCheese.start();
+  sayCheese.start();
+  _ref = binary.all();
+  _results = [];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    x = _ref[_i];
+    if (x.directlink != null) {
+      img = document.createElement("img");
+      img.src = x.directlink;
+      _results.push($("#say-cheese-snapshots").prepend(img));
+    } else {
+      callback_two = function(url) {
+        x.directlink = url.url;
+        x.save();
+        img = document.createElement("img");
+        img.src = url.url;
+        return $("#say-cheese-snapshots").prepend(img);
+      };
+      if (x.path != null) {
+        _results.push(Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two));
+      } else {
+        _results.push(void 0);
+      }
+    }
+  }
+  return _results;
 });

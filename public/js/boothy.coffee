@@ -22,6 +22,12 @@ window.dataURItoBlob = (dataURI, callback) ->
   bb = new Blob([ab], {type: mimeString})
   bb
 
+window.delete_all_binary = () ->
+  for x in binary.all()
+    if x.path?
+      Nimbus.Client.Dropbox.Binary.delete_file(x)
+    x.destroy()
+
 $ ->
   sayCheese = new SayCheese("#say-cheese-container")
   sayCheese.on "start", ->
@@ -47,10 +53,36 @@ $ ->
     window.blob_test = window.dataURItoBlob(data_uri)
     console.log(window.blob_test)
 
-    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png")
+    callback = (bin) ->
+      callback2 = (url) ->
+        bin.directlink = url.url
+        bin.save()
+
+      Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
+
+    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)
 
     console.log("saving pic to Dropbox")
 
     img.src = data_uri
 
   sayCheese.start()
+
+  for x in binary.all()
+    
+    if x.directlink?
+      img = document.createElement("img")
+      img.src = x.directlink
+
+      $("#say-cheese-snapshots").prepend img
+    else
+      callback_two = (url) ->
+        x.directlink = url.url
+        x.save()
+
+        img = document.createElement("img")
+        img.src = url.url
+        $("#say-cheese-snapshots").prepend img
+
+      if x.path?
+        Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two)
