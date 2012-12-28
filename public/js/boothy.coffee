@@ -52,7 +52,7 @@ $ ->
     data_uri = snapshot.toDataURL("image/png")
     window.blob_test = window.dataURItoBlob(data_uri)
     console.log(window.blob_test)
-
+    
     callback = (bin) ->
       callback2 = (url) ->
         bin.directlink = url.url
@@ -65,6 +65,8 @@ $ ->
     console.log("saving pic to Dropbox")
 
     img.src = data_uri
+    
+    $("#currentpic").attr("src", data_uri)
 
   sayCheese.start()
 
