@@ -233,3 +233,10 @@ button, span.button {
   -webkit-transition: -webkit-transform .2s ease-in-out;
   -moz-transition: -moz-transform .2s ease-in-out;
 }
+
+.rightmenu button {
+	width: 80%;
+	margin: 5px 10%; 
+	box-shadow: none; 
+	-webkit-box-shaodw: none;
+}

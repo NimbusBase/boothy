@@ -28,6 +28,9 @@ window.delete_all_binary = () ->
       Nimbus.Client.Dropbox.Binary.delete_file(x)
     x.destroy()
 
+window.filter = (name) ->
+  window.current[name]().render()
+
 $ ->
   sayCheese = new SayCheese("#say-cheese-container")
   sayCheese.on "start", ->
@@ -68,8 +71,8 @@ $ ->
     
     Caman data_uri, "#currentpic", ->  
       @resize( width: 460, height: 345 )
-      @brightness(5).render()
-      
+      window.current = @
+      @render()
       $(@.canvas).attr("id", "currentpic")
       
     $("#currentpic").attr("src", data_uri)

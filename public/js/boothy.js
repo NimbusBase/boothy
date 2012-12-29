@@ -34,6 +34,10 @@
     return _results;
   };
 
+  window.filter = function(name) {
+    return window.current[name]().render();
+  };
+
   $(function() {
     var callback_two, img, sayCheese, x, _i, _len, _ref, _results;
     sayCheese = new SayCheese("#say-cheese-container");
@@ -81,7 +85,8 @@
           width: 460,
           height: 345
         });
-        this.brightness(5).render();
+        window.current = this;
+        this.render();
         return $(this.canvas).attr("id", "currentpic");
       });
       return $("#currentpic").attr("src", data_uri);
