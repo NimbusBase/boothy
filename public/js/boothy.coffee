@@ -29,7 +29,13 @@ window.delete_all_binary = () ->
     x.destroy()
 
 window.filter = (name) ->
-  window.current[name]().render()
+
+  Caman window.pic, "#currentpic", ->  
+    @resize( width: 460, height: 345 )
+    window.current = @
+    @[name]()
+    @render()
+    $(@.canvas).attr("id", "currentpic")
 
 $ ->
   sayCheese = new SayCheese("#say-cheese-container")
@@ -76,6 +82,7 @@ $ ->
       $(@.canvas).attr("id", "currentpic")
       
     $("#currentpic").attr("src", data_uri)
+    window.pic = data_uri
 
   sayCheese.start()
 

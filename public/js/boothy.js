@@ -35,7 +35,16 @@
   };
 
   window.filter = function(name) {
-    return window.current[name]().render();
+    return Caman(window.pic, "#currentpic", function() {
+      this.resize({
+        width: 460,
+        height: 345
+      });
+      window.current = this;
+      this[name]();
+      this.render();
+      return $(this.canvas).attr("id", "currentpic");
+    });
   };
 
   $(function() {
@@ -89,7 +98,8 @@
         this.render();
         return $(this.canvas).attr("id", "currentpic");
       });
-      return $("#currentpic").attr("src", data_uri);
+      $("#currentpic").attr("src", data_uri);
+      return window.pic = data_uri;
     });
     sayCheese.start();
     _ref = binary.all();
