@@ -55,7 +55,7 @@
       return $(".say-cheese").prepend($alert);
     });
     sayCheese.on("snapshot", function(snapshot) {
-      var callback, data_uri, img;
+      var data_uri, img;
       img = document.createElement("img");
       $(img).on("load", function() {
         return $("#say-cheese-snapshots").prepend(img);
@@ -64,17 +64,26 @@
       data_uri = snapshot.toDataURL("image/png");
       window.blob_test = window.dataURItoBlob(data_uri);
       console.log(window.blob_test);
-      callback = function(bin) {
-        var callback2;
-        callback2 = function(url) {
-          bin.directlink = url.url;
-          return bin.save();
-        };
-        return Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2);
-      };
-      Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback);
+      /*
+          callback = (bin) ->
+            callback2 = (url) ->
+              bin.directlink = url.url
+              bin.save()
+      
+            Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
+      
+          Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)
+      */
+
       console.log("saving pic to Dropbox");
-      img.src = data_uri;
+      Caman(data_uri, "#currentpic", function() {
+        this.resize({
+          width: 460,
+          height: 345
+        });
+        this.brightness(5).render();
+        return $(this.canvas).attr("id", "currentpic");
+      });
       return $("#currentpic").attr("src", data_uri);
     });
     sayCheese.start();

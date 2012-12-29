@@ -41,6 +41,7 @@ body {
 #say-cheese-container video {
   box-shadow: 0px 0px 8px 1px #222;
   width: 460px;
+  margin-right: 10px;
 }
 
 
@@ -116,8 +117,8 @@ body {
   line-height: 144px;
   border-radius: 50%;
   border: 0px;
-  top: 10px;
-  right: 215px;
+top: 20px;
+right: 750px;
 }
 
 .snapbutton:hover {  

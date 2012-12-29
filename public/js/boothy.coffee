@@ -53,6 +53,7 @@ $ ->
     window.blob_test = window.dataURItoBlob(data_uri)
     console.log(window.blob_test)
     
+    ###
     callback = (bin) ->
       callback2 = (url) ->
         bin.directlink = url.url
@@ -61,11 +62,16 @@ $ ->
       Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
 
     Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)
+    ###
 
     console.log("saving pic to Dropbox")
-
-    img.src = data_uri
     
+    Caman data_uri, "#currentpic", ->  
+      @resize( width: 460, height: 345 )
+      @brightness(5).render()
+      
+      $(@.canvas).attr("id", "currentpic")
+      
     $("#currentpic").attr("src", data_uri)
 
   sayCheese.start()
