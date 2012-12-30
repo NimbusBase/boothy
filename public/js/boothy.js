@@ -111,7 +111,7 @@
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
-      if (x.directlink != null) {
+      if ((x.directlink != null) && new Date(x.expiration) > new Date()) {
         img = document.createElement("img");
         img.src = x.directlink;
         _results.push($("#say-cheese-snapshots").prepend(img));
@@ -120,6 +120,7 @@
           x.directlink = url.url;
           x.save();
           img = document.createElement("img");
+          window.url = url;
           img.src = url.url;
           return $("#say-cheese-snapshots").prepend(img);
         };

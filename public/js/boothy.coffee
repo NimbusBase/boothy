@@ -77,6 +77,7 @@ $ ->
       $alert.html "<strong>:(</strong> you have to click 'allow' to try me out!"
     $(".say-cheese").prepend $alert
 
+  #what happens when you click snap
   sayCheese.on "snapshot", (snapshot) ->
 
     console.log(snapshot)
@@ -96,18 +97,20 @@ $ ->
   sayCheese.start()
 
   for x in binary.all()
-    
-    if x.directlink?
+       
+    if x.directlink? and new Date(x.expiration) > new Date()
       img = document.createElement("img")
       img.src = x.directlink
 
       $("#say-cheese-snapshots").prepend img
     else
+    
       callback_two = (url) ->
         x.directlink = url.url
         x.save()
 
         img = document.createElement("img")
+        window.url = url
         img.src = url.url
         $("#say-cheese-snapshots").prepend img
 
