@@ -22,6 +22,30 @@ window.dataURItoBlob = (dataURI, callback) ->
   bb = new Blob([ab], {type: mimeString})
   bb
 
+window.save_image = () ->
+  console.log("save image")
+  
+  #upload current pic
+  data = window.current.canvas.toDataURL()
+  blob = window.dataURItoBlob(data)
+  console.log("saving pic to Dropbox")
+  
+  callback = (bin) ->
+    callback2 = (url) ->
+      bin.directlink = url.url
+      bin.save()
+
+    Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
+
+  Nimbus.Client.Dropbox.Binary.upload_blob(blob, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)  
+  
+  #prepend the snapshot
+  img = document.createElement("img")
+  $(img).on "load", ->
+    $("#say-cheese-snapshots").prepend img
+  img.src = data
+  
+
 window.delete_all_binary = () ->
   for x in binary.all()
     if x.path?
@@ -54,26 +78,11 @@ $ ->
     $(".say-cheese").prepend $alert
 
   sayCheese.on "snapshot", (snapshot) ->
-    img = document.createElement("img")
-    $(img).on "load", ->
-      $("#say-cheese-snapshots").prepend img
+
     console.log(snapshot)
     data_uri = snapshot.toDataURL("image/png")
     window.blob_test = window.dataURItoBlob(data_uri)
-    console.log(window.blob_test)
-    
-    ###
-    callback = (bin) ->
-      callback2 = (url) ->
-        bin.directlink = url.url
-        bin.save()
-
-      Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
-
-    Nimbus.Client.Dropbox.Binary.upload_blob(window.blob_test, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)
-    ###
-
-    console.log("saving pic to Dropbox")
+    #console.log(window.blob_test)
     
     Caman data_uri, "#currentpic", ->  
       @resize( width: 460, height: 345 )
