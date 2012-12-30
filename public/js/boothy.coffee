@@ -90,8 +90,14 @@ $ ->
       window.current = @
       @render()
       $(@.canvas).attr("id", "currentpic")
-      
-    $("#currentpic").attr("src", data_uri)
+    
+      context = @canvas.getContext('2d')
+      date = new Date()
+      date_string = "#{ date.getMonth() }/#{ date.getDate() }/#{ date.getFullYear() }"
+      context.font = "20px helvetica"
+      context.fillStyle = "rgb(200, 200, 200)"
+      context.fillText(date_string, 20, 40)
+
     window.pic = data_uri
 
   sayCheese.start()
