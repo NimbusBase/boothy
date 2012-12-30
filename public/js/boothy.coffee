@@ -69,12 +69,16 @@ $ ->
       sayCheese.takeSnapshot()
 
   sayCheese.on "error", (error) ->
-    $alert = $("<div>")
-    $alert.addClass("alert alert-error").css "margin-top", "20px"
     if error is "NOT_SUPPORTED"
-      $alert.html "<strong>:(</strong> your browser doesn't support this yet!"
+      ios.notify
+        title: "Not support"
+        message: "Your browser doesn't support this yet! Try Chrome"
+      
     else
-      $alert.html "<strong>:(</strong> you have to click 'allow' to try me out!"
+      ios.notify
+        title: "Not authorized"
+        message: "You have to click 'allow' to try me out!"    
+    
     $(".say-cheese").prepend $alert
 
   #what happens when you click snap
@@ -92,11 +96,14 @@ $ ->
       $(@.canvas).attr("id", "currentpic")
     
       context = @canvas.getContext('2d')
+      
+      ###
       date = new Date()
-      date_string = "#{ date.getMonth() }/#{ date.getDate() }/#{ date.getFullYear() }"
-      context.font = "20px helvetica"
+      date_string = "#{ date.getMonth() }/#{ date.getDate() }/#{ date.getFullYear() } "
+      context.font = "12px arial"
       context.fillStyle = "rgb(200, 200, 200)"
-      context.fillText(date_string, 20, 40)
+      context.fillText(date_string, 20, 30)
+      ###
 
     window.pic = data_uri
 
