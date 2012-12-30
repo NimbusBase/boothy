@@ -48,7 +48,7 @@
   };
 
   $(function() {
-    var callback_two, img, sayCheese, x, _i, _len, _ref, _results;
+    var callback_two, sayCheese, x, _i, _len, _ref, _results;
     sayCheese = new SayCheese("#say-cheese-container");
     sayCheese.on("start", function() {
       $("#action-buttons").fadeIn("fast");
@@ -106,23 +106,18 @@
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
-      if (x.directlink != null) {
+      callback_two = function(url) {
+        var img;
+        x.directlink = url.url;
+        x.save();
         img = document.createElement("img");
-        img.src = x.directlink;
-        _results.push($("#say-cheese-snapshots").prepend(img));
+        img.src = url.url;
+        return $("#say-cheese-snapshots").prepend(img);
+      };
+      if (x.path != null) {
+        _results.push(Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two));
       } else {
-        callback_two = function(url) {
-          x.directlink = url.url;
-          x.save();
-          img = document.createElement("img");
-          img.src = url.url;
-          return $("#say-cheese-snapshots").prepend(img);
-        };
-        if (x.path != null) {
-          _results.push(Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two));
-        } else {
-          _results.push(void 0);
-        }
+        _results.push(void 0);
       }
     }
     return _results;

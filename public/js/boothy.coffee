@@ -88,22 +88,16 @@ $ ->
 
   for x in binary.all()
     
-    if x.directlink?
+    callback_two = (url) ->
+      x.directlink = url.url
+      x.save()
+
       img = document.createElement("img")
-      img.src = x.directlink
-
+      img.src = url.url
       $("#say-cheese-snapshots").prepend img
-    else
-      callback_two = (url) ->
-        x.directlink = url.url
-        x.save()
 
-        img = document.createElement("img")
-        img.src = url.url
-        $("#say-cheese-snapshots").prepend img
-
-      if x.path?
-        Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two)
+    if x.path?
+      Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two)
 
 
 Nimbus.Auth.authorized_callback = ()->

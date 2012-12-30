@@ -27,11 +27,11 @@ body {
 }
 
 #action-buttons {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  z-index: 5;
-  display: none;
+	position: absolute;
+	bottom: -5px;
+	left: 300px;
+	z-index: 5;
+ 	display: none;
 }
 
 #button-actions button {
@@ -117,8 +117,8 @@ body {
   line-height: 144px;
   border-radius: 50%;
   border: 0px;
-top: 20px;
-right: 750px;
+top: 0px;
+right: 0px;
 }
 
 .snapbutton:hover {  
@@ -188,7 +188,7 @@ right: 750px;
   background-image: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.35));
   cursor: pointer;
 }
-button, span.button {
+button, span.button, a.button {
   padding-top: 14px;
   padding-bottom: 14px;
   padding-left: 20px;
@@ -234,9 +234,11 @@ button, span.button {
   -moz-transition: -moz-transform .2s ease-in-out;
 }
 
-.rightmenu button {
-	width: 80%;
+.rightmenu button, .rightmenu a.button {
+	width: 160px;
 	margin: 5px 10%; 
 	box-shadow: none; 
 	-webkit-box-shaodw: none;
+	display: inline-block;
+	z-index: 10;
 }
