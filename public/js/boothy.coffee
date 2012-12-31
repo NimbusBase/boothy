@@ -46,6 +46,14 @@ window.save_image = () ->
   img.src = data
   
 
+#log out and delete everything in localstorage
+window.log_out = ->
+  for key, val of localStorage
+    console.log(key)
+    delete localStorage[key]
+  $("#loading").show()
+
+
 window.delete_all_binary = () ->
   for x in binary.all()
     if x.path?
@@ -60,6 +68,28 @@ window.filter = (name) ->
     @[name]()
     @render()
     $(@.canvas).attr("id", "currentpic")
+
+window.initialize = () ->
+  for x in binary.all()
+       
+    if x.directlink? and new Date(x.expiration) > new Date()
+      img = document.createElement("img")
+      img.src = x.directlink
+
+      $("#say-cheese-snapshots").prepend img
+    else
+    
+      callback_two = (url) ->
+        x.directlink = url.url
+        x.save()
+
+        img = document.createElement("img")
+        window.url = url
+        img.src = url.url
+        $("#say-cheese-snapshots").prepend img
+
+      if x.path?
+        Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two)  
 
 $ ->
   sayCheese = new SayCheese("#say-cheese-container")
@@ -79,8 +109,6 @@ $ ->
         title: "Not authorized"
         message: "You have to click 'allow' to try me out!"    
     
-    $(".say-cheese").prepend $alert
-
   #what happens when you click snap
   sayCheese.on "snapshot", (snapshot) ->
 
@@ -107,33 +135,14 @@ $ ->
 
     window.pic = data_uri
 
+  window.initialize()
+
   sayCheese.start()
-
-  for x in binary.all()
-       
-    if x.directlink? and new Date(x.expiration) > new Date()
-      img = document.createElement("img")
-      img.src = x.directlink
-
-      $("#say-cheese-snapshots").prepend img
-    else
-    
-      callback_two = (url) ->
-        x.directlink = url.url
-        x.save()
-
-        img = document.createElement("img")
-        window.url = url
-        img.src = url.url
-        $("#say-cheese-snapshots").prepend img
-
-      if x.path?
-        Nimbus.Client.Dropbox.Binary.direct_link(x, callback_two)
-
 
 Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
+    binary.sync_all( ()-> window.initialize() )
 
 if Nimbus.Auth.authorized()
   $("#loading").fadeOut()
