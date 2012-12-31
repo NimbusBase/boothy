@@ -7,6 +7,7 @@
     -moz-perspective: 1000px;
     -o-perspective: 1000px;
     perspective: 1000px;
+  z-index: 2000;
 }
 #notificationWrapper .notification {
   display: block;
