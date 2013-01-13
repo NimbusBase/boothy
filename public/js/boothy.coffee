@@ -18,8 +18,10 @@ window.dataURItoBlob = (dataURI, callback) ->
     ia[i] = byteString.charCodeAt(i)
     i++
   
-  # write the ArrayBuffer to a blob, and you're done
-  bb = new Blob([ab], {type: mimeString})
+  # use the ArrayBuffer as storage for the DataView
+  dv = new DataView(ab)
+  # write the Dataview to a Blob, and you're done
+  bb = new Blob([dv], {type: mimeString})
   bb
 
 window.save_image = () ->
