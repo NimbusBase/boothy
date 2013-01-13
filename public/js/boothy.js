@@ -13,7 +13,8 @@ window.dataURItoBlob = function(dataURI, callback) {
     ia[i] = byteString.charCodeAt(i);
     i++;
   }
-  bb = new Blob([ab], {
+  dv = new DataView(ab);
+  bb = new Blob([dv], {
     type: mimeString
   });
   return bb;
