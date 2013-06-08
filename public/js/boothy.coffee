@@ -2,7 +2,8 @@
 
 sync_object = 
   "GDrive": 
-    "key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
+    #"key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
+    "key": "424243246254-n6b2v8j4j09723ktif41ln247n75pnts.apps.googleusercontent.com",
     "scope": "https://www.googleapis.com/auth/drive",
     "app_name": "test-gdrive-upload"  
   "Dropbox": 
