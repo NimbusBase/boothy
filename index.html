@@ -21,7 +21,8 @@
 
       
       <div id="password">
-        <button onclick="Nimbus.Auth.authorize()">Login With Dropbox</button>
+        <button onclick="Nimbus.Auth.authorize('Dropbox')">Login With Dropbox</button>
+        <button onclick="Nimbus.Auth.authorize('GDrive')">Login With Google Drive</button>
       </div>
               
     </div>
@@ -64,7 +65,7 @@
       </div>​
 	</div>	
 
-    <script src="public/js/nimbus.min.beta.js"></script>
+    <script src="public/js/all.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'></script>
     <script src='public/js/bootstrap.min.js'></script>
     <script src='public/js/say-cheese.js'></script>

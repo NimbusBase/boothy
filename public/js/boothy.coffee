@@ -1,4 +1,15 @@
-Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
+#Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
+
+sync_object = 
+  "GDrive": 
+    "key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
+    "scope": "https://www.googleapis.com/auth/drive",
+    "app_name": "test-gdrive-upload"  
+  "Dropbox": 
+    "key": "",
+    "secret": "",
+    "app_name": ""
+Nimbus.Auth.setup(sync_object);  
 
 window.dataURItoBlob = (dataURI, callback) ->
   
@@ -37,9 +48,9 @@ window.save_image = () ->
       bin.directlink = url.url
       bin.save()
 
-    Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
+    #Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
 
-  Nimbus.Client.Dropbox.Binary.upload_blob(blob, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)  
+  Nimbus.Binary.upload_blob(blob, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)  
   
   #prepend the snapshot
   img = document.createElement("img")
@@ -137,14 +148,15 @@ $ ->
 
     window.pic = data_uri
 
-  window.initialize()
+  #window.initialize()
 
   sayCheese.start()
 
 Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
-    binary.sync_all( ()-> window.initialize() )
+    folder_initialize()
+    #binary.sync_all( ()-> window.initialize() )
 
 if Nimbus.Auth.authorized()
   $("#loading").fadeOut()
