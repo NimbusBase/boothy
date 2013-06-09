@@ -4269,15 +4269,9 @@
         if (!Nimbus.Client.GDrive.check_auth()) {
           return Nimbus.Client.GDrive.authorize(Nimbus.Auth.key, Nimbus.Auth.secret, function() {
             log("GDrive authorized");
-            return window.folder_initialize(function() {
-              log("GDrive folder initialized");
-              window.binary_files_folder_initialize(function() {
-                return log("binary files folder initialized");
-              });
-              if (run) {
-                return run();
-              }
-            });
+            if (run) {
+              return run();
+            }
           });
         } else {
           if (run) {
@@ -4693,7 +4687,8 @@
           log("THE CALLBACK IS CALLED", "model.name exists", window.folder[model.name] != null);
           if (window.folder[model.name] == null) {
             return Nimbus.Client.GDrive.insertFile("", model.name, "application/vnd.google-apps.folder", window.folder[Nimbus.Auth.app_name].id, function(data) {
-              return window.folder[data.title] = data;
+              window.folder[data.title] = data;
+              return binary_files_folder_initialize();
             });
           }
         });
@@ -4704,7 +4699,8 @@
       } else {
         log("creating model folder for", model.name);
         return Nimbus.Client.GDrive.insertFile("", model.name, "application/vnd.google-apps.folder", window.folder[Nimbus.Auth.app_name].id, function(data) {
-          return window.folder[data.title] = data;
+          window.folder[data.title] = data;
+          return binary_files_folder_initialize();
         });
       }
     }
