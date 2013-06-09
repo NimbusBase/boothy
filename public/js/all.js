@@ -4291,7 +4291,7 @@
         return reader.onload = function() {
           var come_back, content, contentType, new_file, parent;
           content = reader.result;
-          contentType = 'application/octet-stream';
+          contentType = blob.type || 'application/octet-stream';
           parent = window.folder["binary_files"].id;
           new_file = binary.create({
             'name': name
@@ -4363,8 +4363,8 @@
     },
     direct_link: function(binary, callback) {
       return Nimbus.Client.GDrive.Binary.initialize_client(function() {
-        log("get the share link");
-        return binary.directlink;
+        log("get the direct link");
+        return callback(binary.directlink);
       });
     },
     delete_file: function(binary) {
