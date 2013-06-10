@@ -1,16 +1,18 @@
 #Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
 
+window.debug = true
+
 sync_object = 
   "GDrive": 
     "key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
     #uncomment following to test with localhost
     #"key": "424243246254-n6b2v8j4j09723ktif41ln247n75pnts.apps.googleusercontent.com",
     "scope": "https://www.googleapis.com/auth/drive",
-    "app_name": "boothy1"  
+    "app_name": "boothy"  
   "Dropbox": 
     "key": "q5yx30gr8mcvq4f",
     "secret": "qy64qphr70lwui5",
-    "app_name": "boothy1"
+    "app_name": "boothy"
 Nimbus.Auth.setup(sync_object);  
 
 window.dataURItoBlob = (dataURI, callback) ->
@@ -154,7 +156,7 @@ $ ->
 
     window.pic = data_uri
 
-  #window.initialize()
+  window.initialize()
 
   sayCheese.start()
 
@@ -162,9 +164,7 @@ Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
 
-    #setTimeout(->
     binary.sync_all( ()-> window.initialize() )
-    #, 2000)
     
 
 if Nimbus.Auth.authorized()
