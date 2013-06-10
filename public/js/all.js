@@ -4027,17 +4027,6 @@
     }
   };
 
-  window.debug = true;
-
-  window.log = function() {
-    var stuff;
-
-    stuff = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    if (window.debug) {
-      return console.log(stuff);
-    }
-  };
-
   Nimbus.Client.GDrive = {
     check_auth: function() {
       log("checking if this is authenticated");
