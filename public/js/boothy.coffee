@@ -87,11 +87,15 @@ window.filter = (name) ->
 window.initialize = () ->
   for x in binary.all()
        
-    if x.directlink? and new Date(x.expiration) > new Date()
-      img = document.createElement("img")
-      img.src = x.directlink
-
-      $("#say-cheese-snapshots").prepend img
+    if x.directlink? 
+      if Nimbus.Auth.service is "Dropbox" and new Date(x.expiration) > new Date()
+        img = document.createElement("img")
+        img.src = x.directlink
+        $("#say-cheese-snapshots").prepend img
+      else if Nimbus.Auth.service is "GDrive"
+        img = document.createElement("img")
+        img.src = x.directlink
+        $("#say-cheese-snapshots").prepend img
     else
     
       callback_two = (url) ->
@@ -157,13 +161,8 @@ $ ->
 Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
-    ###
-    window.folder_initialize ->
-      log("GDrive folder initialized")
-      window.binary_files_folder_initialize ->
-        log("binary files folder initialized")   
-    ###
-    #binary.sync_all( ()-> window.initialize() )
+
+    binary.sync_all( ()-> window.initialize() )
 
 if Nimbus.Auth.authorized()
   $("#loading").fadeOut()

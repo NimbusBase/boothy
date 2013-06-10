@@ -104,10 +104,18 @@ window.initialize = function() {
   _results = [];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     x = _ref[_i];
-    if ((x.directlink != null) && new Date(x.expiration) > new Date()) {
-      img = document.createElement("img");
-      img.src = x.directlink;
-      _results.push($("#say-cheese-snapshots").prepend(img));
+    if (x.directlink != null) {
+      if (Nimbus.Auth.service === "Dropbox" && new Date(x.expiration) > new Date()) {
+        img = document.createElement("img");
+        img.src = x.directlink;
+        _results.push($("#say-cheese-snapshots").prepend(img));
+      } else if (Nimbus.Auth.service === "GDrive") {
+        img = document.createElement("img");
+        img.src = x.directlink;
+        _results.push($("#say-cheese-snapshots").prepend(img));
+      } else {
+        _results.push(void 0);
+      }
     } else {
       callback_two = function(url) {
         x.directlink = url.url;
@@ -183,14 +191,10 @@ $(function() {
 
 Nimbus.Auth.authorized_callback = function() {
   if (Nimbus.Auth.authorized()) {
-    return $("#loading").fadeOut();
-    /*
-    window.folder_initialize ->
-      log("GDrive folder initialized")
-      window.binary_files_folder_initialize ->
-        log("binary files folder initialized")
-    */
-
+    $("#loading").fadeOut();
+    return binary.sync_all(function() {
+      return window.initialize();
+    });
   }
 };
 
