@@ -162,7 +162,10 @@ Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
 
-    binary.sync_all( ()-> window.initialize() )
+    setTimeout(->
+      binary.sync_all( ()-> window.initialize() )
+    , 2000)
+    
 
 if Nimbus.Auth.authorized()
   $("#loading").fadeOut()

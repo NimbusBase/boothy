@@ -192,9 +192,11 @@ $(function() {
 Nimbus.Auth.authorized_callback = function() {
   if (Nimbus.Auth.authorized()) {
     $("#loading").fadeOut();
-    return binary.sync_all(function() {
-      return window.initialize();
-    });
+    return setTimeout(function() {
+      return binary.sync_all(function() {
+        return window.initialize();
+      });
+    }, 2000);
   }
 };
 
