@@ -5,12 +5,12 @@ sync_object = {
   "GDrive": {
     "key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
     "scope": "https://www.googleapis.com/auth/drive",
-    "app_name": "boothy1"
+    "app_name": "boothy"
   },
   "Dropbox": {
     "key": "q5yx30gr8mcvq4f",
     "secret": "qy64qphr70lwui5",
-    "app_name": "boothy1"
+    "app_name": "boothy"
   }
 };
 
@@ -192,11 +192,9 @@ $(function() {
 Nimbus.Auth.authorized_callback = function() {
   if (Nimbus.Auth.authorized()) {
     $("#loading").fadeOut();
-    return setTimeout(function() {
-      return binary.sync_all(function() {
-        return window.initialize();
-      });
-    }, 2000);
+    return binary.sync_all(function() {
+      return window.initialize();
+    });
   }
 };
 

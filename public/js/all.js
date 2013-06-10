@@ -4823,17 +4823,27 @@
         }
         if (window.folder[Nimbus.Auth.app_name] == null) {
           window.folder = {};
-          if (callback != null) {
-            Nimbus.Client.GDrive.insertFile("", Nimbus.Auth.app_name, "application/vnd.google-apps.folder", null, function(data) {
-              log("folder data", data);
-              window.folder[data.title] = data;
-              if (callback != null) {
-                return callback();
+          return Nimbus.Client.GDrive.insertFile("", Nimbus.Auth.app_name, "application/vnd.google-apps.folder", null, function(data) {
+            log("folder data", data);
+            window.folder[data.title] = data;
+            if (callback != null) {
+              callback();
+            }
+            if (window.folder["binary_files"] == null) {
+              return Nimbus.Client.GDrive.insertFile("", "binary_files", "application/vnd.google-apps.folder", window.folder[Nimbus.Auth.app_name].id, function(data) {
+                log("binary_files folder data", data);
+                log("binary ready callback", binary_ready_callback);
+                if (window.binary_ready_callback) {
+                  return window.binary_ready_callback();
+                }
+              });
+            } else {
+              log("binary ready callback", binary_ready_callback);
+              if (window.binary_ready_callback) {
+                return window.binary_ready_callback();
               }
-            });
-          } else {
-            Nimbus.Client.GDrive.insertFile("", Nimbus.Auth.app_name, "application/vnd.google-apps.folder");
-          }
+            }
+          });
         } else {
           log("base folder there: ", window.folder[Nimbus.Auth.app_name].id);
           for (_j = 0, _len1 = a.length; _j < _len1; _j++) {
@@ -4846,11 +4856,20 @@
           if (callback != null) {
             callback();
           }
-        }
-        if (window.folder["binary_files"] == null) {
-          return Nimbus.Client.GDrive.insertFile("", "binary_files", "application/vnd.google-apps.folder", window.folder[Nimbus.Auth.app_name].id, function(data) {
-            return log("binary_files folder data", data);
-          });
+          if (window.folder["binary_files"] == null) {
+            return Nimbus.Client.GDrive.insertFile("", "binary_files", "application/vnd.google-apps.folder", window.folder[Nimbus.Auth.app_name].id, function(data) {
+              log("binary_files folder data", data);
+              log("binary ready callback", binary_ready_callback);
+              if (window.binary_ready_callback) {
+                return window.binary_ready_callback();
+              }
+            });
+          } else {
+            log("binary ready callback", binary_ready_callback);
+            if (window.binary_ready_callback) {
+              return window.binary_ready_callback();
+            }
+          }
         }
       });
     }
@@ -4976,6 +4995,11 @@
               "scope": "https://www.googleapis.com/auth/drive",
               "client_id": localStorage["d_key"]
             });
+            window.binary_ready_callback = function() {
+              if (Nimbus.Auth.authorized_callback != null) {
+                return Nimbus.Auth.authorized_callback();
+              }
+            };
             window.current_syncing = new DelayedOp(function() {
               log("CURRENT SYNCING CALLBACK");
               return Nimbus.Auth.app_ready_func();
@@ -4985,10 +5009,7 @@
             }
             window.current_syncing.ready();
             window.ref.close();
-            Nimbus.track.registered_user();
-            if (Nimbus.Auth.authorized_callback != null) {
-              return Nimbus.Auth.authorized_callback();
-            }
+            return Nimbus.track.registered_user();
             /*
             token = event.url.split("xsrfsign=")[1]
             
@@ -5036,6 +5057,11 @@
           log("client load handled GDrive new");
           log(data);
           if (data !== null) {
+            window.binary_ready_callback = function() {
+              if (Nimbus.Auth.authorized_callback != null) {
+                return Nimbus.Auth.authorized_callback();
+              }
+            };
             window.current_syncing = new DelayedOp(function() {
               log("CURRENT SYNCING CALLBACK");
               return Nimbus.Auth.app_ready_func();
@@ -5044,10 +5070,7 @@
             if (window.handle_initialization != null) {
               window.handle_initialization.execute_callback();
             }
-            window.current_syncing.ready();
-            if (Nimbus.Auth.authorized_callback != null) {
-              return Nimbus.Auth.authorized_callback();
-            }
+            return window.current_syncing.ready();
           }
         });
       }
@@ -5082,6 +5105,11 @@
           log("client load handled GDrive");
           log(data);
           if (data !== null) {
+            window.binary_ready_callback = function() {
+              if (Nimbus.Auth.authorized_callback != null) {
+                return Nimbus.Auth.authorized_callback();
+              }
+            };
             window.current_syncing = new DelayedOp(function() {
               log("CURRENT SYNCING CALLBACK");
               return Nimbus.Auth.app_ready_func();
@@ -5089,10 +5117,7 @@
             if (window.handle_initialization != null) {
               window.handle_initialization.execute_callback();
             }
-            window.current_syncing.ready();
-            if (Nimbus.Auth.authorized_callback != null) {
-              return Nimbus.Auth.authorized_callback();
-            }
+            return window.current_syncing.ready();
           }
         });
       }
