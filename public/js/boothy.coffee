@@ -1,4 +1,19 @@
-Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
+#Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "boothy")
+
+window.debug = true
+
+sync_object = 
+  "GDrive": 
+    "key": "1067089945845-ikqrspvgeiltddsedvshc7sp0tlli4t2.apps.googleusercontent.com",
+    #uncomment following to test with localhost
+    #"key": "424243246254-n6b2v8j4j09723ktif41ln247n75pnts.apps.googleusercontent.com",
+    "scope": "https://www.googleapis.com/auth/drive",
+    "app_name": "boothy"  
+  "Dropbox": 
+    "key": "q5yx30gr8mcvq4f",
+    "secret": "qy64qphr70lwui5",
+    "app_name": "boothy"
+Nimbus.Auth.setup(sync_object);  
 
 window.dataURItoBlob = (dataURI, callback) ->
   
@@ -37,9 +52,9 @@ window.save_image = () ->
       bin.directlink = url.url
       bin.save()
 
-    Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
+    #Nimbus.Client.Dropbox.Binary.direct_link(bin, callback2)
 
-  Nimbus.Client.Dropbox.Binary.upload_blob(blob, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)  
+  Nimbus.Binary.upload_blob(blob, "webcam" + Math.round(new Date() / 1000).toString() + ".png", callback)  
   
   #prepend the snapshot
   img = document.createElement("img")
@@ -74,11 +89,15 @@ window.filter = (name) ->
 window.initialize = () ->
   for x in binary.all()
        
-    if x.directlink? and new Date(x.expiration) > new Date()
-      img = document.createElement("img")
-      img.src = x.directlink
-
-      $("#say-cheese-snapshots").prepend img
+    if x.directlink? 
+      if Nimbus.Auth.service is "Dropbox" and new Date(x.expiration) > new Date()
+        img = document.createElement("img")
+        img.src = x.directlink
+        $("#say-cheese-snapshots").prepend img
+      else if Nimbus.Auth.service is "GDrive"
+        img = document.createElement("img")
+        img.src = x.directlink
+        $("#say-cheese-snapshots").prepend img
     else
     
       callback_two = (url) ->
@@ -144,7 +163,9 @@ $ ->
 Nimbus.Auth.authorized_callback = ()->
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
+
     binary.sync_all( ()-> window.initialize() )
+    
 
 if Nimbus.Auth.authorized()
   $("#loading").fadeOut()
