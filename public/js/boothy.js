@@ -42,7 +42,7 @@ window.save_image = function() {
   console.log("save image");
   data = window.current.canvas.toDataURL();
   blob = window.dataURItoBlob(data);
-  console.log("saving pic to Dropbox");
+  console.log("saving pic ");
   callback = function(bin) {
     var callback2;
     return callback2 = function(url) {
@@ -180,13 +180,18 @@ $(function() {
     });
     return window.pic = data_uri;
   });
-  window.initialize();
+  //window.initialize();
   return sayCheese.start();
 });
 
-Nimbus.Auth.authorized_callback = function() {
+Nimbus.Auth.app_ready_func = function() {
   if (Nimbus.Auth.authorized()) {
     $("#loading").fadeOut();
+    if(Nimbus.Auth.service ==="GDrive")
+    {
+      Nimbus.Auth.secret = Nimbus.Auth.scope;
+    }
+    Nimbus.Binary.setup(Nimbus.Auth.service);
     return binary.sync_all(function() {
       return window.initialize();
     });
